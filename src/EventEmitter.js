@@ -45,7 +45,7 @@ export class EventEmitter {
       return;
     }
     listenerSet.forEach(ownListener => {
-      if (listenerSet === ownListener) {
+      if (ownListener === listener) {
         listenerSet.delete(listener);
       }
     });
