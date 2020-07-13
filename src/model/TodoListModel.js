@@ -34,6 +34,14 @@ export class TodoListModel extends EventEmitter {
   }
 
   /**
+  * TodoListの状態が更新されたときに呼び出されるリスナー関数を解除する
+  * @param {Function} listener
+  */
+  offChange(listener) {
+    this.removeEventListener("change", listener);
+  }
+
+  /**
   * 状態が変更されたときに呼ぶ。登録済みのリスナー関数を呼び出す
   */
   emitChange() {
@@ -45,6 +53,9 @@ export class TodoListModel extends EventEmitter {
   * @param {TodoItemModel} todoItem
   */
   addTodo(todoItem) {
+    if (todoItem.isEmptyTitle()) {
+      return;
+    }
     this.items.push(todoItem);
     this.emitChange();
   }
